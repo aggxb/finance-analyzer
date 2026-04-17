@@ -25,11 +25,20 @@ public class TransactionService {
         return totalIncomes - totalExpenses;
     }
 
-    public List<Transaction> filterByMonthAndYear(int month, int year) {
-        List<Transaction> filteredList = transactionList.stream()
-                .filter(transaction -> transaction.getDate().getMonth().equals(Month.of(month)) && transaction.getDate().getYear() == year).toList();
+    public List<Transaction> filterByMonthAndYear(Integer month, Integer year) {
+        List<Transaction> filteredList;
 
-        return filteredList;
+        boolean validMonth = month > 0 && month <= 12;
+        boolean validYear = year.toString().length() == 4;
+
+        if (validMonth && validYear) {
+            filteredList = transactionList.stream()
+                    .filter(transaction -> transaction.getDate().getMonth().equals(Month.of(month)) && transaction.getDate().getYear() == year).toList();
+
+            return filteredList;
+        }
+
+        return List.of();
     }
 
     public Optional<Transaction> findHighestExpense() {

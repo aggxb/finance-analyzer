@@ -3,7 +3,9 @@ package br.com.aggxb.financeanalyzer.entity;
 import br.com.aggxb.financeanalyzer.enums.TransactionType;
 import br.com.aggxb.financeanalyzer.exceptions.NegativeAmountException;
 
+import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.util.Locale;
 import java.util.Objects;
 
 public class Transaction {
@@ -13,6 +15,8 @@ public class Transaction {
     private LocalDate date;
     private TransactionType type;
     private String category;
+
+    NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
 
     public Transaction(int id, String description, double amount, LocalDate date, TransactionType type, String category) {
         if (amount < 0) throw new NegativeAmountException();
@@ -63,12 +67,14 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return "Transaction{" +
-                "id=" + id +
-                ", description='" + description + '\'' +
-                ", amount=" + amount +
-                ", date=" + date +
-                ", category='" + category + '\'' +
-                '}';
+        String transaction = """
+                TRANSACTION
+                Description: %s
+                Amount: %s
+                Date: %s
+                Transaction Type: %s
+                Category: %s""".formatted(getDescription(), formatter.format(getAmount()), getDate(), getType(), getCategory());
+
+        return transaction;
     }
 }
