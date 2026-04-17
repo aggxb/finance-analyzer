@@ -52,7 +52,7 @@ utilização de laços de repetição tradicionais.
 
 ```bash
 # 1. Clone este repositório
-$ git clone [https://github.com/aggxb/finance-analyzer.git](https://github.com/aggxb/finance-analyzer.git)
+$ git clone https://github.com/aggxb/finance-analyzer.git
 
 # 2. Acesse a pasta do projeto
 $ cd finance-analyzer
